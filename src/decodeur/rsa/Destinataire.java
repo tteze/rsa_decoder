@@ -6,6 +6,8 @@
 
 package decodeur.rsa;
 
+import java.util.Random;
+
 /**
  *
  * @author Théophile
@@ -16,6 +18,7 @@ public class Destinataire {
     private int n;  // n=q*p
     private int e;
     private int cle_dechiffrage;
+    
     
     Destinataire(int size){
         
@@ -36,7 +39,20 @@ public class Destinataire {
     }
     
     private int creer_nb_premier(int size){
-        return 11;
+        boolean ispremier=false;
+        int premier;
+        Random a=new Random();
+        premier=(int) (((a.nextInt()+Math.pow(10, size)))%Math.pow(10, size+1));
+        while(ispremier==false){
+            
+            if(true){
+                ispremier=true;
+            }
+            else{
+                premier=(int) (((a.nextInt()+Math.pow(10, size)))%Math.pow(10, size+1));
+            }
+        }
+        return premier;
     }
     
     public String decoder_message(String s){
