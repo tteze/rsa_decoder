@@ -13,9 +13,9 @@ package decodeur.rsa;
 public class Hacker {
     Hacker(){
     }
-    public boolean intercept(){
+    public boolean intercept(String message,int n_dest,int e_dest){
         try{
-            crack();
+            crack(message,n_dest,e_dest);
         }
         catch(Exception e){
             return false;
@@ -23,8 +23,8 @@ public class Hacker {
         return true;
     }  
 
-    private void crack(){
-        
+    private void crack(String message,int n_dest,int e_dest){
+        // algorithme de crack
     }
     
 }
