@@ -11,5 +11,20 @@ package decodeur.rsa;
  * @author Théophile
  */
 public class Hacker {
+    Hacker(){
+    }
+    public boolean intercept(){
+        try{
+            crack();
+        }
+        catch(Exception e){
+            return false;
+        };
+        return true;
+    }  
+
+    private void crack(){
+        
+    }
     
 }

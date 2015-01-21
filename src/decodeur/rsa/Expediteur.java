@@ -11,29 +11,11 @@ package decodeur.rsa;
  * @author Théophile
  */
 public class Expediteur {
-    private int q; // premier et différent de p
-    private int p;  // premier et différent de q
-    private int n;  // n=q*p
-    private int e;
     
-    private Expediteur(){
-        
+    Expediteur(){
     }
     
-    public int get_n(){
-        return n;
-    }
-    public int get_e(){
-        return e;
-    }
-    private void init_e(){
-        // e doit être premier avec (p-1)*(q-1) et strictement inférieur à (p-1)*(q-1)
-    }
-    private int creer_nb_premier(int size){
-        return 11;
-    }
-    
-    public String coder_message(String s){
+    public String coder_message(String s,int n_dest,int e_dest){
         return "";
     }
 }
