@@ -5,6 +5,7 @@
  */
 package decodeur.rsa;
 
+import java.math.BigInteger;
 import java.util.Random;
 
 /**
@@ -13,21 +14,23 @@ import java.util.Random;
  */
 public class Destinataire {
 
-    private int q; // premier et différent de p
-    private int p;  // premier et différent de q
-    private int n;  // n=q*p
-    private int e;
-    private int cle_dechiffrage;
+    private BigInteger q; // premier et différent de p
+    private BigInteger p;  // premier et différent de q
+    private BigInteger n;  // n=q*p
+    private BigInteger e;
+    private BigInteger cle_dechiffrage;
 
     Destinataire(int size) {
-        System.out.print(this.creer_nb_premier_Solovay(size));
+        Random a=new Random();
+        q=BigInteger.probablePrime(100,a);
+        System.out.print(q);
     }
 
-    public int get_n() {
+    public BigInteger get_n() {
         return n;
     }
 
-    public int get_e() {
+    public BigInteger get_e() {
         return e;
     }
 
@@ -72,7 +75,7 @@ public class Destinataire {
         return premier;
     }
     
-    private double creer_nb_premier_Solovay(int size) {
+    private double creer_nb_premier_Solovay(int size) {  // pas utiliser pour cause de performance
         if(size<=0 ||size >=1000){size=1;}
         boolean ispremier = false;
         double premier;
