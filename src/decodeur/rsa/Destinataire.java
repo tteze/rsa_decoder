@@ -22,8 +22,10 @@ public class Destinataire {
 
     Destinataire(int size) {
         Random a=new Random();
-        q=BigInteger.probablePrime(100,a);
-        System.out.print(q);
+        q=BigInteger.probablePrime(154,a);
+        p=BigInteger.probablePrime(154,a);
+        n=q.multiply(p);
+        System.out.print(n);
     }
 
     public BigInteger get_n() {
