@@ -17,7 +17,7 @@ public class DecodeurRSA {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) {/*
         // initialisation
         Scanner s=new Scanner(System.in);
         String message="";
@@ -42,6 +42,7 @@ public class DecodeurRSA {
         }
         
         message_decode=destinataire.decoder_message(message_code); // le destinataire lit le message
-        
+        */
+        Destinataire destinataire=new Destinataire(10);
     }
 }
