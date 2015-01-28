@@ -25,6 +25,8 @@ public class Destinataire {
         q=BigInteger.probablePrime(154,a);
         p=BigInteger.probablePrime(154,a);
         n=q.multiply(p);
+        init_e();
+        calc_cle_dechiffrage();
         System.out.print(n);
     }
 
@@ -106,7 +108,8 @@ public class Destinataire {
     }
     
 
-    public String decoder_message(String s) {
+    public String decoder_message(BigInteger[] a) {
+        String
         return "";
     }
 }
