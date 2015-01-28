@@ -40,6 +40,7 @@ public class Destinataire {
 
     private void init_e() {
         // e doit être premier avec (p-1)*(q-1) et strictement inférieur à (p-1)*(q-1)
+        e=e.gcd((p.subtract(BigInteger.valueOf(1))).multiply((q.subtract(BigInteger.valueOf(1)))));
     }
 
     private void calc_cle_dechiffrage() {
