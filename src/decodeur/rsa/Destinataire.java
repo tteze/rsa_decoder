@@ -25,7 +25,7 @@ public class Destinataire {
         q=BigInteger.probablePrime(size,a); //création aléatoire de q
         p=BigInteger.probablePrime(size,a); //création aléatoire de p
         n=q.multiply(p);
-        init_e();
+        e=BigInteger.probablePrime(size-3,a);
         calc_cle_dechiffrage();
     }
 
@@ -37,13 +37,9 @@ public class Destinataire {
         return e;
     }
 
-    private void init_e() {
-        // e doit être premier avec (p-1)*(q-1) et strictement inférieur à (p-1)*(q-1)
-        this.e=e.gcd((p.subtract(BigInteger.valueOf(1))).multiply((q.subtract(BigInteger.valueOf(1)))));
-    }
-
     private void calc_cle_dechiffrage() {
-        // calcule de la clé de déchiffrage résoudre e*clé_dechiffrage%((p-1)*(q-1))=1
+        // calcule de la clé de déchiffrage résoudre clé de déchiffrage = inverse(e)%((p-1)*(q-1)) et clé de déchiffrage < ((p-1)*(q-1))
+        cle_dechiffrage=e.modInverse(p.subtract(BigInteger.valueOf(1)).multiply(q.subtract(BigInteger.valueOf(1))));
     }
 
     private int creer_nb_premier_Miller(int size) { // pas utiliser pour cause de performance
