@@ -6,6 +6,8 @@
 
 package decodeur.rsa;
 
+import java.math.BigInteger;
+
 /**
  *
  * @author Théophile
@@ -13,17 +15,17 @@ package decodeur.rsa;
 public class Hacker {
     Hacker(){
     }
-    public boolean intercept(String message,int n_dest,int e_dest){
-        try{
-            crack(message,n_dest,e_dest);
+    public boolean intercept(BigInteger[] message,BigInteger n_dest,BigInteger e_dest,int size){
+        try{ // on essaye de cracker
+            crack(message,n_dest,e_dest,size);
         }
-        catch(Exception e){
+        catch(Exception e){ //on retourne l'échec du crack
             return false;
         };
-        return true;
+        return true; // crack résussi
     }  
 
-    private void crack(String message,int n_dest,int e_dest){
+    private void crack(BigInteger[] message,BigInteger n_dest,BigInteger e_dest,int size){
         // algorithme de crack
     }
     

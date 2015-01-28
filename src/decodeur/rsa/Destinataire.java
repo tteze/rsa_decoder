@@ -22,12 +22,11 @@ public class Destinataire {
 
     Destinataire(int size) {
         Random a=new Random();
-        q=BigInteger.probablePrime(154,a);
-        p=BigInteger.probablePrime(154,a);
+        q=BigInteger.probablePrime(size,a); //création aléatoire de q
+        p=BigInteger.probablePrime(size,a); //création aléatoire de p
         n=q.multiply(p);
         init_e();
         calc_cle_dechiffrage();
-        System.out.print(n);
     }
 
     public BigInteger get_n() {
@@ -40,7 +39,7 @@ public class Destinataire {
 
     private void init_e() {
         // e doit être premier avec (p-1)*(q-1) et strictement inférieur à (p-1)*(q-1)
-        e=e.gcd((p.subtract(BigInteger.valueOf(1))).multiply((q.subtract(BigInteger.valueOf(1)))));
+        this.e=e.gcd((p.subtract(BigInteger.valueOf(1))).multiply((q.subtract(BigInteger.valueOf(1)))));
     }
 
     private void calc_cle_dechiffrage() {
@@ -109,8 +108,13 @@ public class Destinataire {
     }
     
 
-    public String decoder_message(BigInteger[] a) {
-        String
-        return "";
+    public String decoder_message(BigInteger[] a,int size) {
+        String s;
+        char[] c=new char[size];
+        for(int i=0;i<size;i++){
+            c[i]=(char)a[i].modPow(cle_dechiffrage,n).intValue();
+        }
+        s=String.valueOf(c);
+        return s;
     }
 }

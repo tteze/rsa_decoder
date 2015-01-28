@@ -6,6 +6,7 @@
 
 package decodeur.rsa;
 
+import java.math.BigInteger;
 import java.util.Scanner;
 
 /**
@@ -17,13 +18,13 @@ public class DecodeurRSA {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {/*
+    public static void main(String[] args) {
         // initialisation
         Scanner s=new Scanner(System.in);
         String message="";
-        String message_code="";
+        BigInteger[] message_code;
         String message_decode="";
-        int size=5;                     // taille des nombres premier (nombre premier à 5 chiffre)
+        int size=154;                     // taille des nombres premier (nombre premier à 5 chiffre)
         Hacker hacker=new Hacker();
         Expediteur expediteur=new Expediteur();
         Destinataire destinataire=new Destinataire(size);
@@ -32,17 +33,28 @@ public class DecodeurRSA {
         
         message=s.nextLine(); // entrer le message
         
-        message_code=expediteur.coder_message(message,destinataire.get_n(),destinataire.get_e()); //l'expediteur code un message
+        //l'expediteur code un message
+        message_code=expediteur.coder_message(message,destinataire.get_n(),destinataire.get_e()); 
         
-        if(hacker.intercept(message_code,destinataire.get_n(),destinataire.get_e())==true){
+        // affichage du message codé
+        System.out.print("message codé par l'expediteur:");     
+        for(int i=0;i<message.length();i++){
+            System.out.print(" "+message_code[i]);
+        }
+        System.out.println();
+        
+        // essai de crack
+        if(hacker.intercept(message_code,destinataire.get_n(),destinataire.get_e(),message.length())==true){
                 // message cracké
         }
         else{
                 // message non cracké
         }
         
-        message_decode=destinataire.decoder_message(message_code); // le destinataire lit le message
-        */
-        Destinataire destinataire=new Destinataire(10);
+        // le message arive à bonne destination et se fait décodé
+        message_decode=destinataire.decoder_message(message_code,message.length()); // le destinataire lit le message
+        
+        // affichage du message décodé
+        System.out.println("message décodé par le destinataire: "+message_decode);
     }
 }
