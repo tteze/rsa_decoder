@@ -76,25 +76,13 @@ public class Hacker {
         s = String.copyValueOf(c);
         System.out.println("message cracké par fréquence: " + s);
 
-        c = new char[size];
-        char[] francais2 = {' ', 'e', 'a', 's', 'i', 'n', 't', 'r', 'u', 'l', 'o', 'd', 'c', 'p', 'm', 'v', 'q', 'g', 'f', 'h', 'b', 'x', 'j', 'y', 'z', 'k', 'w'};
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < taille; j++) {
-                if (message[i].equals(trie[j])) {
-                    c[i] = francais2[j];
-                }
-            }
-        }
-        s = String.copyValueOf(c);
-        System.out.println("message cracké par fréquence: " + s);
-
         boolean acceptation = false;
         Scanner scan = new Scanner(System.in);
         String demande;
         int count = 0;
         Random r;
+        Scanner read = new Scanner(s);
         while (acceptation == false) {
-            Scanner read = new Scanner(s);
             String mot = read.next();
             System.out.print("Est ce que vous connaissez " + mot + " ? (oui/non/corrige): ");
             demande = scan.nextLine();
@@ -114,10 +102,16 @@ public class Hacker {
                                 if(mot.charAt(u)==francais[e]){
                                     francais[e]=mot_cor.charAt(u);
                                 }
-                                if(mot_cor.charAt(u)==francais[e]){
-                                    francais[e]=mot.charAt(u);
+                                else{
+                                    if(mot_cor.charAt(u)==francais[e]){
+                                        francais[e]=mot.charAt(u);
+                                    }
                                 }
                             }
+                            char car=mot.charAt(u);
+                            mot.replace(car,' ');
+                            mot.replace(mot_cor.charAt(u), car);
+                            mot.replace(' ', mot_cor.charAt(u));
                         }
                     }
                     c = new char[size];
@@ -130,13 +124,16 @@ public class Hacker {
                     }
                     s = String.copyValueOf(c);
                     count=0;
+                    
+                    read=new Scanner(s);
+                    System.out.println("message cracké par fréquence: " + s);
                     break;
             }
-            if (count >= 5) {
+            if (count >= 10) {
                 acceptation = true;
             }
         }
-        System.out.println(s);
+        System.out.println("message cracké par fréquence: "+s);
 
     }
 
