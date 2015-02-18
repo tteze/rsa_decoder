@@ -24,7 +24,7 @@ public class DecodeurRSA {
         String message="";
         BigInteger[] message_code;
         String message_decode="";
-        int size=154;                     // taille des nombres premier (nombre premier à 5 chiffre)
+        int size=20;                     // taille des nombres premier (nombre premier à 5 chiffre)
         Hacker hacker=new Hacker();
         Expediteur expediteur=new Expediteur();
         Destinataire destinataire=new Destinataire(size);
@@ -42,15 +42,13 @@ public class DecodeurRSA {
             System.out.print(" "+message_code[i]);
         }
         System.out.println();
-        
+        System.out.println();
+        System.out.println("---Try to crack---");
         // essai de crack
-        if(hacker.intercept(message_code,destinataire.get_n(),destinataire.get_e(),message.length())==true){
-                // message cracké
+        if(hacker.intercept(message_code,destinataire.get_n(),destinataire.get_e(),message.length())==false){
+                System.out.println("message non cracké");
         }
-        else{
-                // message non cracké
-        }
-        
+        System.out.println();
         // le message arive à bonne destination et se fait décodé
         message_decode=destinataire.decoder_message(message_code,message.length()); // le destinataire lit le message
         

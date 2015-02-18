@@ -3,7 +3,16 @@ package decodeur.rsa;
 import java.math.BigInteger;
 import java.util.BitSet;
 class  MPQS{
-	  /*
+    private BigInteger P;
+    private BigInteger Q;
+    
+    public BigInteger get_P(){
+        return P;
+    }
+    public BigInteger get_Q(){
+        return Q;
+    }	
+    /*
     Racine carrée entière.
     Renvoie le nombre maximal dont le carré est inférieur ou égal à n
     [Méthode dite de Newton]
@@ -216,7 +225,7 @@ class  MPQS{
 		return essai;
 	}
 	
-	public MPQS(BigInteger[] message, BigInteger n_dest, BigInteger e_dest, int size){
+	public MPQS(BigInteger n_dest){
 		long deb=System.currentTimeMillis();
 		final int taille=300000;
 		//final int base=41903;
@@ -235,12 +244,12 @@ class  MPQS{
 		final double lnN=Math.log(n.doubleValue());
 		final double temp=4*Math.exp(Math.sqrt(lnN*Math.log(lnN)/12));
 		final int base=(int)(temp*Math.log(temp));
-		System.out.println(base);
+		//System.out.println(base);
 		byte expo,ajout,borne;
 		
 		q=sqrt(sqrt(BigI(2).multiply(n)).divide(BigI(taille)));
 		racine=sqrt(n).add(un);
-		System.out.println(n.divide(BigI(multiplier)));
+		//System.out.println(n.divide(BigI(multiplier)));
 		for (int i=2;i<=base;i++)
 			if (prima(i)&&legendre(n,i)==1)tailprem++;
 		int[] prem=new int [tailprem+1];
@@ -269,7 +278,7 @@ class  MPQS{
 			tsqrt[i]=sqrtMod(n,premi);
 			log2[i]=(byte)Math.ceil(Math.log(premi)/ln2);
 		}
-		System.out.println(tailprem+" "+base);
+		//System.out.println(tailprem+" "+base);
 		while (nblisse<li){   // tant que l'on a pas assez de résidus
 			nb++;
 			q=nextprime(q);
@@ -354,14 +363,14 @@ class  MPQS{
 					}
 				}
 			}
-			if (nb%20==0)
-				System.out.println("Fini : "+nblisse+"("+nbfaux+")="+(nblisse*100)/(tailprem+sup)+"%	");
+			//if (nb%20==0)
+				//System.out.println("Fini : "+nblisse+"("+nbfaux+")="+(nblisse*100)/(tailprem+sup)+"%	");
 		} }
-		System.out.println("");
-		System.out.println("J'ai fini le crible avec "+nbfaux+" qui sont faux");
-		System.out.println("Criblage fini en "+(System.currentTimeMillis()-deb)+" ms");
-		System.out.println("Un nombre lisse toutes les "+((long)nb*(long)taille)/li+" valeurs");
-		System.out.println("Crible sur "+nb*2+" polynomes");
+		//System.out.println("");
+		//System.out.println("J'ai fini le crible avec "+nbfaux+" qui sont faux");
+		//System.out.println("Criblage fini en "+(System.currentTimeMillis()-deb)+" ms");
+		//System.out.println("Un nombre lisse toutes les "+((long)nb*(long)taille)/li+" valeurs");
+		//System.out.println("Crible sur "+nb*2+" polynomes");
 		
 		BitSet[]T=new BitSet[li];
 		BitSet bonPiv=new BitSet(li);
@@ -404,7 +413,7 @@ class  MPQS{
 		}
 		for(int i=0;i!=li;i++)matr[i]=new BitSet(0);
 		for(int i=0;i!=col;i++)T  [i]=new BitSet(0);
-		System.out.println("Pivot de Gauss termine");
+		//System.out.println("Pivot de Gauss termine");
 		int []ligneExp=new int [col];
 		for (int i=col;i<li;i++){
 			BigInteger prodQ=un;
@@ -422,12 +431,19 @@ class  MPQS{
 			if((!fact.equals(un))&&(!fact.equals(n))){
 				if (fact.equals(BigI(multiplier)))continue;
 				if ((n.divide(fact)).equals(BigI(multiplier)))continue;
-				if (fact.mod(BigI(multiplier)).equals(zero))
-				System.out.println((fact.divide(BigI(multiplier)))+"*"+n.divide(fact));
-				else System.out.println((fact)+"*"+((n.divide(fact)).divide(BigI(multiplier))));
+				if (fact.mod(BigI(multiplier)).equals(zero)){
+                                    System.out.println("p*q="+(fact.divide(BigI(multiplier)))+"*"+n.divide(fact));
+                                    this.P=fact.divide(BigI(multiplier));
+                                    this.Q=n.divide(fact);
+                                }
+				else {
+                                    System.out.println("p*q="+(fact)+"*"+((n.divide(fact)).divide(BigI(multiplier))));
+                                    this.P=fact;
+                                    this.Q=(n.divide(fact)).divide(BigI(multiplier));
+                                }
 				break;
 			}
 		}
-		System.out.println((System.currentTimeMillis()-deb)+" millisecondes");
+		System.out.println("temps: "+(System.currentTimeMillis()-deb)+" millisecondes");
 	}
 }

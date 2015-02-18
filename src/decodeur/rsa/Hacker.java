@@ -20,7 +20,7 @@ public class Hacker {
 
     public boolean intercept(BigInteger[] message, BigInteger n_dest, BigInteger e_dest, int size) {
         try { // on essaye de cracker
-            crack_frequentiel(message, size);
+            crack_recherche_cle_privee(message,n_dest,e_dest, size);
         } catch (Exception e) { //on retourne l'échec du crack
             return false;
         };
@@ -138,6 +138,16 @@ public class Hacker {
     }
 
     private void crack_recherche_cle_privee(BigInteger[] message, BigInteger n_dest, BigInteger e_dest, int size){
-       
+       MPQS facto=new MPQS(n_dest);
+       BigInteger p=facto.get_P();
+       BigInteger q=facto.get_Q();
+       BigInteger cle_dechiffrage=e_dest.modInverse(p.subtract(BigInteger.valueOf(1)).multiply(q.subtract(BigInteger.valueOf(1))));
+        String s;
+        char[] c=new char[size];
+        for(int i=0;i<size;i++){
+            c[i]=(char)message[i].modPow(cle_dechiffrage,n_dest).intValue();
+        }
+        s=String.valueOf(c);
+        System.out.println("Message cracké: "+s);
     }
 }
