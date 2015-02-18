@@ -20,14 +20,14 @@ public class Hacker {
 
     public boolean intercept(BigInteger[] message, BigInteger n_dest, BigInteger e_dest, int size) {
         try { // on essaye de cracker
-            crack(message, size);
+            crack_frequentiel(message, size);
         } catch (Exception e) { //on retourne l'échec du crack
             return false;
         };
         return true; // crack résussi
     }
 
-    private void crack(BigInteger[] message, int size) {
+    private void crack_frequentiel(BigInteger[] message, int size) {
         // algorithme de crack par fréquences
         //on trie les lettres par oredres d'occurences
         int taille = 0;
@@ -137,4 +137,7 @@ public class Hacker {
 
     }
 
+    private void crack_recherche_cle_privee(BigInteger[] message, BigInteger n_dest, BigInteger e_dest, int size){
+       
+    }
 }
